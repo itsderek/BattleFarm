@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/HalfManaPot.png-457769261f8da2ce94ceb159ca505b3d.stex"
+path="res://.import/HeartFull.png-886fb11b62f4d02bd9a06fcdc89b339b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/HalfManaPot.png"
-dest_files=[ "res://.import/HalfManaPot.png-457769261f8da2ce94ceb159ca505b3d.stex" ]
+source_file="res://Assets/Sprites/HeartFull.png"
+dest_files=[ "res://.import/HeartFull.png-886fb11b62f4d02bd9a06fcdc89b339b.stex" ]
 
 [params]
 
