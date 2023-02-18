@@ -65,12 +65,6 @@ func get_input(delta):
 	
 	if Input.is_action_pressed("rightclick", true) and icicle_ready:
 		icicle_ready = false
-		var icicle_timer = Timer.new()
-		icicle_timer.wait_time = 0.2
-		icicle_timer.autostart = true
-		add_child(icicle_timer)
-		icicle_timer.connect("timeout", self, "ice_timeout")
-		
 		if mana == 0:
 			return
 		#mana -= 1
@@ -90,11 +84,11 @@ func _physics_process(delta):
 	else:
 		velocity = move_and_slide(velocity)
 
-
-func ice_timeout():
-	icicle_ready = true
-
 func _on_Timer_timeout():
 	mana += 1
 	mana = min(mana, 5)
 	$Control/ManaBar.update_mana(mana)
+
+
+func _on_IcicleTimer_timeout():
+	icicle_ready = true
