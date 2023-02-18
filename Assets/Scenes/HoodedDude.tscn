@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Assets/Scenes/HoodedDude.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Sprites/HoodedDude.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Sprites/ManaPot.png" type="Texture" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 17.0
@@ -20,3 +21,14 @@ shape = SubResource( 1 )
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 zoom = Vector2( 0.75, 0.75 )
+
+[node name="GridContainer" type="GridContainer" parent="Camera2D"]
+visible = false
+margin_left = 101.0
+margin_top = -2.0
+margin_right = 141.0
+margin_bottom = 38.0
+columns = 3
+
+[node name="Sprite" type="Sprite" parent="Camera2D/GridContainer"]
+texture = ExtResource( 3 )
