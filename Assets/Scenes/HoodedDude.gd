@@ -1,7 +1,15 @@
 extends KinematicBody2D
+class_name Player
 
 var mana = 5
+var health = 5
 var speed = 200  # speed in pixels/sec
+var just_damaged = false
+
+var knock_back_speed = 400
+var knock_back_direction = Vector2.ZERO
+
+
 var velocity = Vector2.ZERO
 onready var sprite = get_node("Sprite")
 #const fireball = preload("res://Fireball.tscn")
@@ -13,7 +21,16 @@ func update_flip(flipped):
 		$Trail.scale.x = -1
 	else:
 		$Trail.scale.x = 1
+
+func take_damage(dmg, dir):
+	if $Sprite/AnimationPlayer.is_playing():
+		return
+	$Sprite/AnimationPlayer.play("damage_flash")
+	health -= dmg
+	$Control/HealthBar.update_health(health)
 	
+	just_damaged = true
+	knock_back_direction = dir
 
 func get_input():
 	velocity = Vector2.ZERO
@@ -46,7 +63,12 @@ func get_input():
 
 func _physics_process(delta):
 	get_input()
-	velocity = move_and_slide(velocity)
+	
+	if just_damaged:
+		just_damaged = false
+		move_and_collide(knock_back_direction * knock_back_speed * delta)
+	else:
+		velocity = move_and_slide(velocity)
 
 
 func _on_Timer_timeout():

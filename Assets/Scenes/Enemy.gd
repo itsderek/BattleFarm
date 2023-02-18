@@ -11,8 +11,8 @@ onready var target = get_node("/root/BattleFarm/HoodedDude")
 func _ready():
 	pass
 
-func takeDamage(damage):
-	health -= damage
+func take_damage(dmg):
+	health -= dmg
 	just_damaged = true
 	if $Sprite/AnimationPlayer.is_playing():
 		$Sprite/AnimationPlayer.stop()
@@ -29,4 +29,9 @@ func _process(delta):
 		just_damaged = false
 	else:
 		var velocity = global_position.direction_to(target.global_position)
-		move_and_collide(velocity * speed * delta)
+		var collision = move_and_collide(velocity * speed * delta)
+		if collision:
+			var collider = collision.collider
+			if collider is Player:
+				var dir = (collider.global_position - global_position).normalized()
+				collider.take_damage(1, dir)

@@ -35,6 +35,6 @@ func _on_Fireball_body_entered(body):
 	var loc = global_position
 	fparticles.init(loc)
 	get_parent().get_parent().add_child(fparticles)
-	body.takeDamage(50)
+	body.take_damage(50)
 	self.queue_free()
 	
