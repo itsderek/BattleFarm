@@ -45,5 +45,5 @@ func on_timeout():
 
 
 func _on_Icicle_body_entered(body):
-	body.takeDamage(30)
+	body.take_damage(30)
 	self.queue_free()
