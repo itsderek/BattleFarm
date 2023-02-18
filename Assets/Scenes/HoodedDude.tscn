@@ -113,10 +113,11 @@ margin_right = 112.0
 margin_bottom = 31.0
 texture = ExtResource( 6 )
 
-[node name="Timer" type="Timer" parent="."]
+[node name="ManaRefillTimer" type="Timer" parent="."]
 wait_time = 3.0
 autostart = true
 
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [node name="ProjectileOrigin" type="Position2D" parent="."]
 position = Vector2( 0, -8 )
+
+[connection signal="timeout" from="ManaRefillTimer" to="." method="_on_Timer_timeout"]
