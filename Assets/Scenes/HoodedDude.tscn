@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Assets/Scenes/HoodedDude.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Sprites/HoodedDude.png" type="Texture" id=2]
@@ -135,5 +135,8 @@ autostart = true
 
 [node name="ProjectileOrigin" type="Position2D" parent="."]
 position = Vector2( 0, -8 )
+
+[node name="IcicleOrigin" type="Position2D" parent="."]
+position = Vector2( 30, -90 )
 
 [connection signal="timeout" from="ManaRefillTimer" to="." method="_on_Timer_timeout"]
