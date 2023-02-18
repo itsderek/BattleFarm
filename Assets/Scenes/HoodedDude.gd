@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+var mana = 5
 var speed = 200  # speed in pixels/sec
 var velocity = Vector2.ZERO
 #const fireball = preload("res://Fireball.tscn")
@@ -19,6 +20,10 @@ func get_input():
 	velocity = velocity.normalized() * speed
 
 	if Input.is_action_just_pressed("leftclick", true):
+		if mana == 0:
+			return
+		mana -= 1
+		$Control/ManaBar.update_mana(mana)
 		var fball = fireball.instance()
 		var dir = get_global_mouse_position() - position
 		fball.init(global_position, dir)
@@ -27,3 +32,9 @@ func get_input():
 func _physics_process(delta):
 	get_input()
 	velocity = move_and_slide(velocity)
+
+
+func _on_Timer_timeout():
+	mana += 1
+	mana = min(mana, 5)
+	$Control/ManaBar.update_mana(mana)
