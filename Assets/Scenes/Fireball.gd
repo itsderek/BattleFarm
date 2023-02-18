@@ -13,6 +13,8 @@ func _ready():
 	timer.autostart = true
 	add_child(timer)
 	timer.connect("timeout", self, "on_timeout")
+	$Tween.interpolate_property($Sprite, "scale", Vector2(0.2, 0.2), Vector2(1,1), 0.2)
+	$Tween.start()
 
 func on_timeout():
 	self.queue_free()
@@ -20,6 +22,7 @@ func on_timeout():
 func init(spawnspot, direction):
 	global_position = spawnspot
 	velocity = direction.normalized() * speed
+	rotation = get_angle_to(to_global(direction))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

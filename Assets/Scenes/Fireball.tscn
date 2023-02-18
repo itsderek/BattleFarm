@@ -25,4 +25,6 @@ shape = SubResource( 1 )
 stream = ExtResource( 2 )
 autoplay = true
 
+[node name="Tween" type="Tween" parent="."]
+
 [connection signal="body_entered" from="." to="." method="_on_Fireball_body_entered"]

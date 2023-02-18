@@ -3,6 +3,7 @@ extends KinematicBody2D
 var mana = 5
 var speed = 200  # speed in pixels/sec
 var velocity = Vector2.ZERO
+onready var sprite = get_node("Sprite")
 #const fireball = preload("res://Fireball.tscn")
 export(PackedScene) var fireball = preload("res://Assets/Scenes/Fireball.tscn")
 
@@ -18,15 +19,21 @@ func get_input():
 		velocity.y -= 1
 	# Make sure diagonal movement isn't faster
 	velocity = velocity.normalized() * speed
-
+	
+	if (get_global_mouse_position() - position).x >= 0:
+		sprite.flip_h = false
+	else:
+		sprite.flip_h = true
+	
 	if Input.is_action_just_pressed("leftclick", true):
 		if mana == 0:
 			return
 		mana -= 1
 		$Control/ManaBar.update_mana(mana)
+		var fball_origin = $ProjectileOrigin.global_position
 		var fball = fireball.instance()
-		var dir = get_global_mouse_position() - position
-		fball.init(global_position, dir)
+		var dir = get_global_mouse_position() - fball_origin
+		fball.init(fball_origin, dir)
 		get_parent().add_child(fball)
 
 func _physics_process(delta):
