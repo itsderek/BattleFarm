@@ -1,13 +1,38 @@
 extends KinematicBody2D
+class_name Player
 
 var mana = 5
+var health = 5
 var speed = 200  # speed in pixels/sec
+var just_damaged = false
+
+var knock_back_speed = 400
+var knock_back_direction = Vector2.ZERO
+
+
 var velocity = Vector2.ZERO
 onready var sprite = get_node("Sprite")
 #const fireball = preload("res://Fireball.tscn")
 export(PackedScene) var fireball = preload("res://Assets/Scenes/Fireball.tscn")
 var icicle = preload("res://Assets/Scenes/Icicle.tscn")
 var icicle_ready = true
+
+func update_flip(flipped):
+	sprite.flip_h = flipped
+	if flipped:
+		$Trail.scale.x = -1
+	else:
+		$Trail.scale.x = 1
+
+func take_damage(dmg, dir):
+	if $Sprite/AnimationPlayer.is_playing():
+		return
+	$Sprite/AnimationPlayer.play("damage_flash")
+	health -= dmg
+	$Control/HealthBar.update_health(health)
+	
+	just_damaged = true
+	knock_back_direction = dir
 
 func get_input(delta):
 	velocity = Vector2.ZERO
@@ -23,9 +48,9 @@ func get_input(delta):
 	velocity = velocity.normalized() * speed
 	
 	if (get_global_mouse_position() - position).x >= 0:
-		sprite.flip_h = false
+		update_flip(false)
 	else:
-		sprite.flip_h = true
+		update_flip(true)
 	
 	if Input.is_action_just_pressed("leftclick", true):
 		if mana == 0:
@@ -58,7 +83,12 @@ func get_input(delta):
 
 func _physics_process(delta):
 	get_input(delta)
-	velocity = move_and_slide(velocity)
+	
+	if just_damaged:
+		just_damaged = false
+		move_and_collide(knock_back_direction * knock_back_speed * delta)
+	else:
+		velocity = move_and_slide(velocity)
 
 
 func ice_timeout():
