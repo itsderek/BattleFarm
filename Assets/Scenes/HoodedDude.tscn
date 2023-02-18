@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Assets/Scenes/HoodedDude.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Sprites/HoodedDude.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Assets/Scenes/ManaBar.gd" type="Script" id=4]
 [ext_resource path="res://Assets/Scenes/HealthBar.gd" type="Script" id=5]
 [ext_resource path="res://Assets/Sprites/HeartFull.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Scenes/SkillsGUI.tscn" type="PackedScene" id=7]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 17.0
@@ -113,8 +114,10 @@ margin_right = 112.0
 margin_bottom = 31.0
 texture = ExtResource( 6 )
 
+[node name="SkillsGUI" parent="Control" instance=ExtResource( 7 )]
+
 [node name="ManaRefillTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 2.0
 autostart = true
 
 [node name="ProjectileOrigin" type="Position2D" parent="."]
