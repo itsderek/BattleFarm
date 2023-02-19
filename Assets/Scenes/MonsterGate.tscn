@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Assets/Sprites/GatePillar.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Sprites/MonsterGate.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Scenes/MonsterGate.gd" type="Script" id=3]
+
+[sub_resource type="ParticlesMaterial" id=1]
+flag_disable_z = true
+direction = Vector3( 0, 1, 0 )
+gravity = Vector3( 0, 30, 0 )
+initial_velocity = 9.9
+initial_velocity_random = 0.22
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+color = Color( 1, 0.145098, 0.00784314, 1 )
+hue_variation = 0.12
+hue_variation_random = 0.26
+
+[node name="MonsterGate" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="NorthPillar" type="Sprite" parent="."]
+position = Vector2( -142, -80 )
+texture = ExtResource( 1 )
+
+[node name="Gate" type="Node2D" parent="."]
+
+[node name="Particles2D" type="Particles2D" parent="Gate"]
+position = Vector2( -125, -71 )
+emitting = false
+amount = 4
+process_material = SubResource( 1 )
+
+[node name="Particles2D2" type="Particles2D" parent="Gate"]
+position = Vector2( -125, -42 )
+emitting = false
+amount = 4
+process_material = SubResource( 1 )
+
+[node name="GateSprite" type="Sprite" parent="Gate"]
+texture = ExtResource( 2 )
+
+[node name="GateTimer" type="Timer" parent="Gate"]
+
+[node name="SouthPillar" type="Sprite" parent="."]
+position = Vector2( 139, 57 )
+texture = ExtResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Gate/GateTimer" to="." method="_on_GateTimer_timeout"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

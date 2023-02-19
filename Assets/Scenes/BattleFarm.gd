@@ -14,6 +14,15 @@ func _ready():
 
 
 func _on_Timer_timeout():
+	$MonsterGate.gate_open()
 	var e = enemy.instance()
-	e.global_position = Vector2(100, 100)
 	add_child(e)
+	e.global_position = $SpawnPoints/Spawn1.global_position
+	
+	e = enemy.instance()
+	add_child(e)
+	e.global_position = $SpawnPoints/Spawn2.global_position
+	
+	e = enemy.instance()
+	add_child(e)
+	e.global_position = $SpawnPoints/Spawn3.global_position
